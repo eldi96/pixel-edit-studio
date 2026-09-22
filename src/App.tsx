@@ -240,9 +240,27 @@ function loadTemplates(): Template[] {
       return defaults;
     }
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.every(validateTemplate)
-      ? parsed
-      : [];
+
+    if (!Array.isArray(parsed) || !parsed.every(validateTemplate)) {
+      return [];
+    }
+
+    // GitHub Pages 배포 경로에 맞게 기존 이미지 경로 보정
+    const fixedTemplates = parsed.map((template) => ({
+      ...template,
+      imageData:
+        template.imageData === "/templates/cat.jpg"
+          ? `${import.meta.env.BASE_URL}templates/cat.jpg`
+          : template.imageData === "/templates/chicken.png"
+            ? `${import.meta.env.BASE_URL}templates/chicken.png`
+            : template.imageData === "/templates/park.jpg"
+              ? `${import.meta.env.BASE_URL}templates/park.jpg`
+              : template.imageData,
+    }));
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(fixedTemplates));
+    
+    return fixedTemplates;
   } catch {
     return [];
   }
