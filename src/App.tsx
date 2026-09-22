@@ -250,11 +250,11 @@ function loadTemplates(): Template[] {
       ...template,
       imageData:
         template.imageData === "/templates/cat.jpg"
-          ? `${import.meta.env.BASE_URL}templates/cat.jpg`
+          ? `"templates/cat.jpg"
           : template.imageData === "/templates/chicken.png"
-            ? `${import.meta.env.BASE_URL}templates/chicken.png`
+            ? "templates/chicken.png"
             : template.imageData === "/templates/park.jpg"
-              ? `${import.meta.env.BASE_URL}templates/park.jpg`
+              ? "templates/park.jpg"
               : template.imageData,
     }));
 
