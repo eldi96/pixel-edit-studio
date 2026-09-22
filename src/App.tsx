@@ -216,7 +216,7 @@ function loadTemplates(): Template[] {
           text: "좋은 아침!\n오늘도 시작해보자.",
           ratio: "1:1",
           fontSize: 54,
-          imageData: `${import.meta.env.BASE_URL}templates/cat.jpg`,
+          imageData: "templates/cat.jpg",
           isDefault: true,
         }),
         makeTemplate("SOCIAL STORY", {
@@ -224,7 +224,7 @@ function loadTemplates(): Template[] {
           ratio: "9:16",
           fontSize: 58,
           y: 0.78,
-          imageData: `${import.meta.env.BASE_URL}templates/chicken.png`,
+          imageData: "templates/chicken.png",
           isDefault: true,
         }),
         makeTemplate("PHOTO CARD", {
@@ -232,7 +232,7 @@ function loadTemplates(): Template[] {
           ratio: "4:5",
           fontSize: 62,
           y: 0.84,
-          imageData: `${import.meta.env.BASE_URL}templates/park.jpg`,
+          imageData: "templates/park.jpg",
           isDefault: true,
         }),
       ];
