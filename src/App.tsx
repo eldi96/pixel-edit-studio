@@ -399,7 +399,7 @@ export default function App() {
 
     if (state.text) {
       ctx.save();
-      const font = `800 ${state.fontSize * (w / 900)}px "Pretendard", "Noto Sans KR", Arial, sans-serif`;
+      const font = `800 ${state.fontSize * (w / 900)}px "Pretendard", "Noto Sans KR", sans-serif`;
       ctx.font = font;
       ctx.fillStyle = state.color;
       ctx.globalAlpha = state.opacity;
