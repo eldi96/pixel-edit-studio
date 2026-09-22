@@ -216,7 +216,7 @@ function loadTemplates(): Template[] {
           text: "좋은 아침!\n오늘도 시작해보자.",
           ratio: "1:1",
           fontSize: 54,
-          imageData: "templates/cat.jpg",
+          imageData: "/pixel-edit-studio/templates/cat.jpg",
           isDefault: true,
         }),
         makeTemplate("SOCIAL STORY", {
@@ -224,7 +224,7 @@ function loadTemplates(): Template[] {
           ratio: "9:16",
           fontSize: 58,
           y: 0.78,
-          imageData: "templates/chicken.png",
+          imageData: "/pixel-edit-studio/templates/chicken.png",
           isDefault: true,
         }),
         makeTemplate("PHOTO CARD", {
@@ -232,7 +232,7 @@ function loadTemplates(): Template[] {
           ratio: "4:5",
           fontSize: 62,
           y: 0.84,
-          imageData: "templates/park.jpg",
+          imageData: "/pixel-edit-studio/templates/park.jpg",
           isDefault: true,
         }),
       ];
@@ -240,27 +240,9 @@ function loadTemplates(): Template[] {
       return defaults;
     }
     const parsed = JSON.parse(raw);
-
-    if (!Array.isArray(parsed) || !parsed.every(validateTemplate)) {
-      return [];
-    }
-
-    // GitHub Pages 배포 경로에 맞게 기존 이미지 경로 보정
-    const fixedTemplates = parsed.map((template) => ({
-      ...template,
-      imageData:
-        template.imageData === "/templates/cat.jpg"
-          ? `"templates/cat.jpg"
-          : template.imageData === "/templates/chicken.png"
-            ? "templates/chicken.png"
-            : template.imageData === "/templates/park.jpg"
-              ? "templates/park.jpg"
-              : template.imageData,
-    }));
-
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(fixedTemplates));
-    
-    return fixedTemplates;
+    return Array.isArray(parsed) && parsed.every(validateTemplate)
+      ? parsed
+      : [];
   } catch {
     return [];
   }
@@ -399,7 +381,7 @@ export default function App() {
 
     if (state.text) {
       ctx.save();
-      const font = `800 ${state.fontSize * (w / 900)}px "Pretendard", "Noto Sans KR", sans-serif`;
+      const font = `800 ${state.fontSize * (w / 900)}px "Pretendard", "Noto Sans KR", Arial, sans-serif`;
       ctx.font = font;
       ctx.fillStyle = state.color;
       ctx.globalAlpha = state.opacity;
