@@ -240,9 +240,24 @@ function loadTemplates(): Template[] {
       return defaults;
     }
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.every(validateTemplate)
-      ? parsed
-      : [];
+
+    if (Array.isArray(parsed) && parsed.every(validateTemplate)) {
+      const fixed = parsed.map((template) => ({
+        ...template,
+        imageData:
+          typeof template.imageData === "string"
+            ? template.imageData.replace(
+                /^\/templates\//,
+                "/pixel-edit-studio/templates/"
+              )
+            : template.imageData,
+      }));
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(fixed));
+  return fixed;
+}
+
+return [];
   } catch {
     return [];
   }
