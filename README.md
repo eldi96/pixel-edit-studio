@@ -1,3 +1,40 @@
+flowchart TD
+    ManualStart(("시작 A: 사용자가 스냅샷 버튼 클릭"))
+    AutoStart(("시작 B: 실행 중인 백엔드의 예약 시각 도달"))
+    CollectAPI["FastAPI 수집 API 또는 예약 작업"]
+    Collector["유기동물 데이터 수집 서비스"]
+    GetKey["백엔드 환경변수에서 API 인증키 읽기"]
+    PublicAPI["대전광역시 유기동물 공공 API 요청"]
+    Response["API 응답 수신"]
+    Validate{"응답 코드와 데이터 형식이 정상인가?"}
+    Parse["응답 필드 파싱"]
+    Aggregate["등록일·구·종·상태별 집계"]
+    Timestamp["KST 기준 시각 생성<br/>기준일·조회 시각 기록"]
+    Save["정상 실제 집계 기록 저장"]
+    SQLite[("SQLite 날짜별 기록")]
+    Success["수집 성공 상태 갱신"]
+    Failure(("실패 흐름으로 이동"))
+    End(("종료: 저장 결과를 화면에 반영"))
+
+    ManualStart --> CollectAPI
+    AutoStart --> CollectAPI
+    CollectAPI --> Collector
+    Collector --> GetKey
+    GetKey --> PublicAPI
+    PublicAPI --> Response
+    Response --> Validate
+
+    Validate -->|정상| Parse
+    Parse --> Aggregate
+    Aggregate --> Timestamp
+    Timestamp --> Save
+    Save --> SQLite
+    Save --> Success
+    Success --> End
+
+    Validate -->|오류·시간 초과·형식 변경| Failure
+
+
 # PIXEL EDIT STUDIO
 
 React + TypeScript + Vite + Canvas API + localStorage로 만든 브라우저 이미지 편집기.
