@@ -1,10 +1,3 @@
-```mermaid
-flowchart TD
-    A(("시작")) --> B["다음 단계"]
-    B --> C(("끝"))
-```
-
-
 # PIXEL EDIT STUDIO
 
 React + TypeScript + Vite + Canvas API + localStorage로 만든 브라우저 이미지 편집기.
